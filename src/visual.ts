@@ -55,7 +55,7 @@ export class Visual implements IVisual {
     public update(options: VisualUpdateOptions) {
         this.settings = Visual.parseSettings(options && options.dataViews && options.dataViews[0]);
         let dataView: DataView = options.dataViews[0];
-        //debugger;
+        
         // categories
         const categories = dataView.categorical.categories;
         // get count of category elements
@@ -76,57 +76,12 @@ export class Visual implements IVisual {
                     style: categories[4].values[j]
                 });
             }
-            debugger;
+           
             // reset, clean
             var e = document.querySelector("div");
             e.innerHTML = "";
-            // Write TypeScript code!
-            //const appDiv: HTMLElement = document.getElementById('p');
-            //appDiv.innerHTML = `<h1>TypeScript Starter</h1>`;
-
-            const groups = new DataSet([
-                { id: 1, content: 'Truck&nbsp;1' },
-                { id: 2, content: 'Truck&nbsp;2' },
-                { id: 3, content: 'Truck&nbsp;3' },
-                { id: 4, content: 'Truck&nbsp;4' }
-            ]);
-
-            // Create a DataSet (allows two way data-binding)
-            // create items
-            const data: any = new DataSet();
-            const count = 100;
-            let order = 1;
-            let truck = 1;
-            const max: any = 0.02;
-
-            // create 4 truck groups, then order inside each group
-            for (let j = 0; j < 4; j++) {
-                const date = new Date();
-                for (let i = 0; i < count / 4; i++) {
-                    date.setHours(date.getHours() + 4 * Math.random());
-                    const start = new Date(date);
-
-                    date.setHours(date.getHours() + 2 + Math.floor(Math.random() * 4));
-                    const end = new Date(date);
-
-                    data.add({
-                        id: order,
-                        group: truck,
-                        start,
-                        end,
-                        content: 'Order ' + order
-                    });
-
-                    order++;
-                }
-                truck++;
-            }
-
+            
             const options = {
-                stack: false,
-                start: new Date(),
-                end: new Date(1000 * 60 * 60 * 24 + new Date().valueOf()),
-                editable: true,
                 margin: {
                     item: 10, // minimal margin between items
                     axis: 5 // minimal margin between items and the axis
@@ -134,9 +89,8 @@ export class Visual implements IVisual {
                 orientation: 'top'
             };
 
-            const timeline = new Timeline(e, null, options);
-            timeline.setGroups(groups);
-            timeline.setItems(data);
+            const timeline = new Timeline(e, null, options);            
+            timeline.setItems(tldata);
         }
 
         if (this.textNode) {
