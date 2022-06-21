@@ -56,9 +56,27 @@ export class Visual implements IVisual {
         this.settings = Visual.parseSettings(options && options.dataViews && options.dataViews[0]);
         let dataView: DataView = options.dataViews[0];
         //debugger;
+        // categories
+        const categories = dataView.categorical.categories;
+        // get count of category elements
+        const categoriesCount = categories[0].values.length;
 
 
         if (document) {
+
+            const tldata: any = new DataSet();
+
+            for (let j = 0; j < categoriesCount; j++) {
+                
+                tldata.add({
+                    id: categories[0].values[j],
+                    start: categories[1].values[j],
+                    end: categories[2].values[j],
+                    content: categories[3].values[j],
+                    style: categories[4].values[j]
+                });
+            }
+            debugger;
             // reset, clean
             var e = document.querySelector("div");
             e.innerHTML = "";
