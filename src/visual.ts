@@ -59,6 +59,7 @@ export class Visual implements IVisual {
 
     public update(options: VisualUpdateOptions) {
         this.settings = Visual.parseSettings(options && options.dataViews && options.dataViews[0]);
+        let dataView: DataView = options.dataViews[0];
         console.log('Visual update', options);
         if (this.textNode) {
             this.textNode.textContent = (this.updateCount++).toString();
