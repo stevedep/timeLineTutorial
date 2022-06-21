@@ -75,13 +75,17 @@ export class Visual implements IVisual {
             const tldata: any = new DataSet();
 
             for (let j = 0; j < categoriesCount; j++) {
-                
+                let categorySelectionId = this.host.createSelectionIdBuilder()
+                    .withCategory(categories[0], j) // we have only one category (only one `Manufacturer` column)
+                    .createSelectionId();
+
                 tldata.add({
                     id: categories[0].values[j],
                     start: categories[1].values[j],
                     end: categories[2].values[j],
                     content: categories[3].values[j],
-                    style: categories[4].values[j]
+                    style: categories[4].values[j],
+                    sid: categorySelectionId
                 });
             }
            
