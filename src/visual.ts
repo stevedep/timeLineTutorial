@@ -36,6 +36,10 @@ import DataView = powerbi.DataView;
 import VisualObjectInstanceEnumerationObject = powerbi.VisualObjectInstanceEnumerationObject;
 import { Timeline, TimelineOptions, DataItem, DataSet } from "vis-timeline/standalone";
 
+import ISelectionManager = powerbi.extensibility.ISelectionManager; // added for selections
+import ISelectionId = powerbi.visuals.ISelectionId; //added for selections
+import IVisualHost = powerbi.extensibility.visual.IVisualHost; // added for selections
+
 
 import { VisualSettings } from "./settings";
 export class Visual implements IVisual {
@@ -43,6 +47,10 @@ export class Visual implements IVisual {
     private updateCount: number;
     private settings: VisualSettings;
     private textNode: Text;
+
+
+    private host: IVisualHost; //added for selections    
+    private selectionManager: ISelectionManager; //added for selections    
 
     constructor(options: VisualConstructorOptions) {
         console.log('Visual constructor', options);
@@ -60,7 +68,7 @@ export class Visual implements IVisual {
         const categories = dataView.categorical.categories;
         // get count of category elements
         const categoriesCount = categories[0].values.length;
-
+        let selectionManager = this.selectionManager; // for selections
 
         if (document) {
 
