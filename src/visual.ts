@@ -105,6 +105,21 @@ export class Visual implements IVisual {
 
             const timeline = new Timeline(e, null, options);            
             timeline.setItems(tldata);
+            // https://www.google.com/search?q=document.querySelectorAll(+add+mouse+click+event+function&rlz=1C1JZAP_en&oq=document.querySelectorAll(+add+mouse+click+event+function&aqs=chrome..69i57j33i160.6789j0j1&sourceid=chrome&ie=UTF-8
+            // https://stackoverflow.com/questions/21700364/adding-click-event-listener-to-elements-with-the-same-class
+            var d = document.querySelectorAll(".vis-item");
+            
+            d.forEach(function (el) {
+                el.addEventListener('click', function emit(event) {
+                    // noticed the bold dom properties, https://www.google.com/search?q=property+in+bold+dev+tools&rlz=1C1JZAP_en&oq=property+in+bold+dev+tools&aqs=chrome..69i57j33i10i160j33i22i29i30.5500j0j1&sourceid=chrome&ie=UTF-8
+                    // the vis-item is a own property of the DOM, https://developer.chrome.com/docs/devtools/dom/properties/#own-and-inherited
+                    https://www.google.com/search?q=print+properties+of+element&rlz=1C1JZAP_en&oq=print+properties+of+element&aqs=chrome..69i57j33i10i160l3j33i22i29i30l6.4081j0j1&sourceid=chrome&ie=UTF-8
+                    // read the attributes, https://developer.mozilla.org/en-US/docs/Web/API/Element/attributes
+                    //console.log(el.attributes); // then copy path                    
+                            console.log(this.attributes);
+                    selectionManager.select(this.attributes[0].ownerElement["vis-item"].data.sid)
+                });
+            })
         }
 
         if (this.textNode) {
