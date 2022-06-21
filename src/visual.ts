@@ -53,6 +53,8 @@ export class Visual implements IVisual {
     private selectionManager: ISelectionManager; //added for selections    
 
     constructor(options: VisualConstructorOptions) {
+        this.host = options.host; //added for selections        
+        this.selectionManager = this.host.createSelectionManager(); // added for selections
         console.log('Visual constructor', options);
         this.target = options.element;
         const new_p: HTMLElement = document.createElement("div");
@@ -76,7 +78,7 @@ export class Visual implements IVisual {
 
             for (let j = 0; j < categoriesCount; j++) {
                 let categorySelectionId = this.host.createSelectionIdBuilder()
-                    .withCategory(categories[0], j) // we have only one category (only one `Manufacturer` column)
+                    .withCategory(categories[0], j) 
                     .createSelectionId();
 
                 tldata.add({
