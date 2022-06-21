@@ -47,16 +47,21 @@ export class Visual implements IVisual {
     constructor(options: VisualConstructorOptions) {
         console.log('Visual constructor', options);
         this.target = options.element;
-        this.updateCount = 0;
-        if (document) {
-            const new_p: HTMLElement = document.createElement("p");
-            new_p.appendChild(document.createTextNode("Update count:"));
-            const new_em: HTMLElement = document.createElement("em");
-            this.textNode = document.createTextNode(this.updateCount.toString());
-            new_em.appendChild(this.textNode);
-            new_p.appendChild(new_em);
-            this.target.appendChild(new_p);
+        const new_p: HTMLElement = document.createElement("div");
+        new_p.id = "visualization";
+        this.target.appendChild(new_p);
+    }
 
+    public update(options: VisualUpdateOptions) {
+        this.settings = Visual.parseSettings(options && options.dataViews && options.dataViews[0]);
+        let dataView: DataView = options.dataViews[0];
+        //debugger;
+
+
+        if (document) {
+            // reset, clean
+            var e = document.querySelector("div");
+            e.innerHTML = "";
             // Write TypeScript code!
             //const appDiv: HTMLElement = document.getElementById('p');
             //appDiv.innerHTML = `<h1>TypeScript Starter</h1>`;
@@ -111,18 +116,11 @@ export class Visual implements IVisual {
                 orientation: 'top'
             };
 
-            const timeline = new Timeline(new_p, null, options);
+            const timeline = new Timeline(e, null, options);
             timeline.setGroups(groups);
             timeline.setItems(data);
-
         }
-    }
 
-    public update(options: VisualUpdateOptions) {
-        this.settings = Visual.parseSettings(options && options.dataViews && options.dataViews[0]);
-        let dataView: DataView = options.dataViews[0];
-        //debugger;
-        
         if (this.textNode) {
             this.textNode.textContent = (this.updateCount++).toString();
         }
